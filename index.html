@@ -414,7 +414,7 @@
             Gampang kok...
         </p>
 
-        <button onclick="nextPage(2)">
+        <button onclick="startGame()">
 
             MULAI 🎮
 
@@ -892,7 +892,15 @@
 
 <script>
 
+function startGame() {
 
+const music = document.getElementById("backgroundMusic");
+
+music.play();
+
+nextPage(2);
+
+}
     function nextPage(pageNumber) {
 
         const pages = document.querySelectorAll(".page");
@@ -961,7 +969,9 @@
 
 </script>
 
+<audio id="backgroundMusic" loop>
 
+<source src="videoplayback" type="audio/mpeg">
 </body>
 
 </html>
