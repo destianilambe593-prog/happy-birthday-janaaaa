@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Happy Birthday Jana 💗</title>
+    <title>Birthday Game - Jana 🎂</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,209 +18,938 @@
         }
 
         body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ffdce9, #e9ddff);
-            color: #5b4650;
-            padding: 20px;
-            overflow: hidden;
-        }
 
-        .container {
-            width: 100%;
-            max-width: 650px;
-            background: rgba(255, 255, 255, 0.90);
-            padding: 45px 35px;
-            border-radius: 35px;
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #ffdce9,
+                #e7dcff
+            );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
             text-align: center;
-            box-shadow: 0 20px 50px rgba(80, 50, 70, 0.15);
-            position: relative;
-            z-index: 2;
+
+            color: #5c4652;
+
+            padding: 20px;
+
         }
 
-        .small-text {
-            font-size: 15px;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            color: #a16b83;
+
+        .game {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            min-height: 500px;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.92
+            );
+
+            border-radius: 35px;
+
+            padding: 40px 30px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(80, 50, 80, 0.15);
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
         }
 
-        .heart {
-            font-size: 55px;
-            margin-bottom: 10px;
-            animation: floating 2s infinite ease-in-out;
+
+        .page {
+
+            display: none;
+
+            width: 100%;
+
+            animation: fade 0.6s ease;
+
         }
+
+
+        .page.active {
+
+            display: block;
+
+        }
+
+
+        .emoji {
+
+            font-size: 70px;
+
+            margin-bottom: 20px;
+
+            animation: float 2s infinite;
+
+        }
+
 
         h1 {
-            font-size: 45px;
-            color: #c8668c;
-            margin-bottom: 10px;
+
+            font-size: 42px;
+
+            color: #c7658d;
+
+            margin-bottom: 15px;
+
         }
+
 
         h2 {
+
             font-size: 25px;
-            font-weight: normal;
-            color: #73586a;
-            margin-bottom: 25px;
+
+            margin-bottom: 20px;
+
+            color: #76576a;
+
         }
 
-        .message {
+
+        p {
+
             font-size: 17px;
+
             line-height: 1.8;
-            margin-bottom: 18px;
+
+            margin-bottom: 20px;
+
         }
 
-        .highlight {
-            font-weight: bold;
-            color: #c05f87;
-        }
 
-        .button {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 15px 30px;
+        button {
+
+            border: none;
+
             background: #df83a5;
+
             color: white;
-            text-decoration: none;
+
+            padding: 15px 30px;
+
             border-radius: 30px;
+
             font-size: 16px;
+
+            cursor: pointer;
+
+            margin: 8px;
+
             transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(200, 100, 140, 0.25);
+
         }
 
-        .button:hover {
+
+        button:hover {
+
             transform: translateY(-3px);
-            background: #cc6f93;
+
+            background: #c96f93;
+
         }
 
-        .flower {
-            position: absolute;
-            font-size: 25px;
-            animation: floating 3s infinite ease-in-out;
+
+        .boxes {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin: 25px 0;
+
         }
 
-        .flower1 {
-            top: 8%;
-            left: 8%;
+
+        .box {
+
+            font-size: 55px;
+
+            background: #fff0f6;
+
+            border-radius: 20px;
+
+            padding: 20px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
         }
 
-        .flower2 {
-            top: 15%;
-            right: 10%;
-            animation-delay: 1s;
+
+        .box:hover {
+
+            transform: scale(1.08);
+
         }
 
-        .flower3 {
-            bottom: 10%;
-            left: 12%;
-            animation-delay: 0.5s;
+
+        .photo-placeholder {
+
+            width: 100%;
+
+            height: 220px;
+
+            background: #f5e8ef;
+
+            border-radius: 25px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 50px;
+
+            margin-bottom: 20px;
+
         }
 
-        .flower4 {
-            bottom: 12%;
-            right: 10%;
-            animation-delay: 1.5s;
+
+        .progress {
+
+            width: 100%;
+
+            height: 25px;
+
+            background: #eee;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin: 20px 0;
+
         }
 
-        @keyframes floating {
-            0%, 100% {
+
+        .progress-bar {
+
+            height: 100%;
+
+            width: 80%;
+
+            background: #df83a5;
+
+            border-radius: 20px;
+
+        }
+
+
+        .letter {
+
+            background: #fff8fb;
+
+            border-radius: 25px;
+
+            padding: 25px;
+
+            text-align: left;
+
+            line-height: 1.8;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .confetti {
+
+            font-size: 45px;
+
+            margin: 10px;
+
+            display: inline-block;
+
+            animation: float 1.5s infinite;
+
+        }
+
+
+        @keyframes fade {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(15px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
                 transform: translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes float {
+
+            0%, 100% {
+
+                transform: translateY(0);
+
             }
 
             50% {
+
                 transform: translateY(-10px);
+
             }
+
         }
 
+
         @media (max-width: 500px) {
-            .container {
-                padding: 35px 22px;
-            }
 
             h1 {
-                font-size: 35px;
+
+                font-size: 32px;
+
             }
 
             h2 {
+
                 font-size: 21px;
+
             }
 
-            .message {
+            p {
+
                 font-size: 15px;
+
             }
+
+            .game {
+
+                padding: 30px 20px;
+
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="flower flower1">🌷</div>
-    <div class="flower flower2">✨</div>
-    <div class="flower flower3">🌸</div>
-    <div class="flower flower4">💫</div>
 
-    <div class="container">
+<div class="game">
 
-        <div class="small-text">
-            ADA SESUATU UNTUKMU...
-        </div>
 
-        <div class="heart">
-            💗
-        </div>
+    <!-- PAGE 1 -->
 
-        <h1>Happy Birthday, Jana! 🎂</h1>
+    <div class="page active" id="page1">
 
-        <h2>Untuk sahabatku tersayang</h2>
+        <div class="emoji">🎀</div>
 
-        <p class="message">
-            Selamat ulang tahun, Jana! 🥹💗
+        <h1>Hai, Jana! 👀</h1>
+
+        <p>
+
+            Ada sesuatu yang sudah aku siapkan
+
+            khusus untuk kamu.
+
         </p>
 
-        <p class="message">
-            Semoga di umur yang baru ini,
-            semakin banyak hal baik yang datang ke hidupmu.
-            Semoga semua doa, harapan, dan hal-hal yang sedang
-            kamu perjuangkan satu per satu bisa menemukan jalannya.
+        <p>
+
+            Tapi sebelum mendapat hadiahnya,
+
+            kamu harus menyelesaikan beberapa
+
+            misi terlebih dahulu. 😌
+
         </p>
 
-        <p class="message">
-            Dan satu hal yang nggak boleh dilupakan...
-            <span class="highlight">
-                semangat skripsinya, Jan! 📚✨
-            </span>
-        </p>
+        <button onclick="nextPage(2)">
 
-        <p class="message">
-            Aku tahu perjalanan menuju selesai itu nggak selalu mudah.
-            Jadi kalau nanti capek, bingung, atau merasa ingin menyerah,
-            istirahat sebentar nggak apa-apa.
-            Yang penting jangan berhenti terlalu lama.
-            Kamu pasti bisa sampai di titik yang kamu impikan. 🤍
-        </p>
+            MULAI 🎮
 
-        <p class="message">
-            Oh iya...
-            <span class="highlight">
-                jangan lupa undang aku kalau sempro dan semhas ya! 😭
-            </span>
-            Aku mau lihat kamu sampai di tahap itu.
-        </p>
-
-        <p class="message">
-            Walaupun sekarang kita mungkin nggak sesering dulu ketemu,
-            semoga jarak dan kesibukan nggak pernah bikin kita
-            benar-benar kehilangan cerita.
-        </p>
-
-        <a href="#" class="button">
-            BUKA KEJUTANNYA 💌
-        </a>
+        </button>
 
     </div>
 
+
+
+    <!-- PAGE 2 -->
+
+    <div class="page" id="page2">
+
+        <div class="emoji">💌</div>
+
+        <h2>Misi Pertama</h2>
+
+        <p>
+
+            Hari ini seseorang bertambah usia...
+
+        </p>
+
+        <p>
+
+            Dan orang itu adalah...
+
+        </p>
+
+        <h1>JANA! 🎂</h1>
+
+        <p>
+
+            Selamat ulang tahun! 🥹💗
+
+        </p>
+
+        <button onclick="nextPage(3)">
+
+            LANJUT ➜
+
+        </button>
+
+    </div>
+
+
+
+    <!-- PAGE 3 -->
+
+    <div class="page" id="page3">
+
+        <div class="emoji">🎁</div>
+
+        <h2>Misi Kedua</h2>
+
+        <p>
+
+            Ada tiga hadiah di depanmu.
+
+        </p>
+
+        <p>
+
+            Pilih satu...
+
+            Jangan curang ya! 👀
+
+        </p>
+
+
+        <div class="boxes">
+
+            <div
+                class="box"
+                onclick="chooseBox(1)"
+            >
+
+                🎁
+
+            </div>
+
+
+            <div
+                class="box"
+                onclick="chooseBox(2)"
+            >
+
+                🎁
+
+            </div>
+
+
+            <div
+                class="box"
+                onclick="chooseBox(3)"
+            >
+
+                🎁
+
+            </div>
+
+        </div>
+
+
+        <p id="boxResult"></p>
+
+        <button
+            id="boxNext"
+            style="display:none"
+            onclick="nextPage(4)"
+        >
+
+            LANJUT ➜
+
+        </button>
+
+    </div>
+
+
+
+    <!-- PAGE 4 -->
+
+    <div class="page" id="page4">
+
+        <div class="emoji">📸</div>
+
+        <h2>Misi Ketiga</h2>
+
+        <p>
+
+            Kalau dipikir-pikir...
+
+            kita sudah melewati cukup banyak
+
+            cerita bersama.
+
+        </p>
+
+
+        <div class="photo-placeholder">
+
+            📷
+
+        </div>
+
+
+        <p>
+
+            Ini baru satu dari sekian banyak
+
+            kenangan yang aku simpan.
+
+        </p>
+
+
+        <button onclick="nextPage(5)">
+
+            LIHAT SELANJUTNYA ➜
+
+        </button>
+
+    </div>
+
+
+
+    <!-- PAGE 5 -->
+
+    <div class="page" id="page5">
+
+        <div class="emoji">📚</div>
+
+        <h2>🚨 MISI SKRIPSI 🚨</h2>
+
+        <p>
+
+            Jana, ada satu misi besar
+
+            yang harus segera diselesaikan!
+
+        </p>
+
+
+        <h1>SKRIPSI 🎓</h1>
+
+
+        <div class="progress">
+
+            <div class="progress-bar"></div>
+
+        </div>
+
+
+        <p>
+
+            Progress:
+
+            <b>SEDIKIT LAGI! 😭</b>
+
+        </p>
+
+
+        <p>
+
+            Semangat terus ya, Jan.
+
+            Kalau capek, istirahat.
+
+            Kalau bingung, pelan-pelan.
+
+            Tapi jangan menyerah.
+
+        </p>
+
+
+        <p>
+
+            Aku percaya kamu bisa sampai
+
+            di garis akhir. 🤍
+
+        </p>
+
+
+        <button onclick="nextPage(6)">
+
+            AKU BISA! 💪
+
+        </button>
+
+    </div>
+
+
+
+    <!-- PAGE 6 -->
+
+    <div class="page" id="page6">
+
+        <div class="emoji">😭</div>
+
+        <h2>PERINGATAN PENTING!</h2>
+
+
+        <p>
+
+            Ada satu hal yang tidak boleh
+
+            kamu lupakan...
+
+        </p>
+
+
+        <h1>
+
+            SEMPRO & SEMHAS 🎓
+
+        </h1>
+
+
+        <p>
+
+            Jangan lupa undang aku ya, Jan! 😭
+
+        </p>
+
+
+        <p>
+
+            Aku mau lihat kamu sampai
+
+            di tahap itu.
+
+        </p>
+
+
+        <button onclick="nextPage(7)">
+
+            SIAP! 😭🎓
+
+        </button>
+
+    </div>
+
+
+
+    <!-- PAGE 7 -->
+
+    <div class="page" id="page7">
+
+        <div class="emoji">💗</div>
+
+        <h2>Surat kecil untuk Jana</h2>
+
+
+        <div class="letter">
+
+            <p>
+
+                Jan...
+
+            </p>
+
+
+            <p>
+
+                Selamat ulang tahun ya. 🥹
+
+            </p>
+
+
+            <p>
+
+                Semoga di umur yang baru ini,
+
+                kamu dikelilingi banyak hal baik.
+
+                Semoga semua yang sedang kamu
+
+                perjuangkan perlahan menemukan
+
+                jalannya.
+
+            </p>
+
+
+            <p>
+
+                Walaupun sekarang kita mungkin
+
+                nggak sesering dulu ketemu,
+
+                aku tetap bersyukur pernah
+
+                punya banyak cerita sama kamu.
+
+            </p>
+
+
+            <p>
+
+                Jangan terlalu keras sama diri
+
+                sendiri. Kamu sudah sejauh ini,
+
+                dan itu bukan sesuatu yang kecil.
+
+            </p>
+
+
+            <p>
+
+                Semoga skripsinya lancar,
+
+                sempronya lancar,
+
+                semhasnya lancar,
+
+                sampai akhirnya kamu bisa
+
+                bilang:
+
+                <b>"AKHIRNYA AKU LULUS!"</b> 🎓😭
+
+            </p>
+
+
+            <p>
+
+                Dan sekali lagi...
+
+                jangan lupa undang aku.
+
+                Aku tunggu! 😂
+
+            </p>
+
+
+            <p>
+
+                — Dari sahabatmu 🤍
+
+            </p>
+
+        </div>
+
+
+        <button onclick="nextPage(8)">
+
+            MASIH ADA SATU LAGI... 👀
+
+        </button>
+
+    </div>
+
+
+
+    <!-- PAGE 8 -->
+
+    <div class="page" id="page8">
+
+        <div class="confetti">🎉</div>
+
+        <div class="confetti">🎂</div>
+
+        <div class="confetti">💗</div>
+
+
+        <h1>
+
+            HAPPY BIRTHDAY
+
+        </h1>
+
+
+        <h1>
+
+            JANA! 🎂
+
+        </h1>
+
+
+        <p>
+
+            Selamat bertambah usia,
+
+            sahabatku. 🤍
+
+        </p>
+
+
+        <p>
+
+            Semoga semua hal baik
+
+            menemukan jalan menuju kamu.
+
+        </p>
+
+
+        <p>
+
+            Dan semoga suatu hari nanti
+
+            kita bisa melihat kembali
+
+            semua perjuangan ini
+
+            sambil berkata:
+
+        </p>
+
+
+        <h2>
+
+            "Ternyata kita berhasil." 🥹🎓
+
+        </h2>
+
+
+        <p>
+
+            Jangan lupa...
+
+            <b>AKU TUNGGU UNDANGAN SEMPRO & SEMHAS! 😂</b>
+
+        </p>
+
+
+        <div class="confetti">🎉</div>
+
+        <div class="confetti">🥳</div>
+
+        <div class="confetti">🎈</div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    function nextPage(pageNumber) {
+
+        const pages = document.querySelectorAll(".page");
+
+        pages.forEach(page => {
+
+            page.classList.remove("active");
+
+        });
+
+
+        document
+
+            .getElementById("page" + pageNumber)
+
+            .classList.add("active");
+
+    }
+
+
+
+    function chooseBox(number) {
+
+        const result = document.getElementById("boxResult");
+
+        const nextButton = document.getElementById("boxNext");
+
+
+        if (number === 1) {
+
+            result.innerHTML =
+
+                "Kamu memilih kotak pertama! 🎁<br>" +
+
+                "Isinya... doa baik untuk kamu. 💗";
+
+        }
+
+
+        if (number === 2) {
+
+            result.innerHTML =
+
+                "Kamu memilih kotak kedua! 🎁<br>" +
+
+                "Isinya... semangat skripsi! 📚😭";
+
+        }
+
+
+        if (number === 3) {
+
+            result.innerHTML =
+
+                "Kamu memilih kotak ketiga! 🎁<br>" +
+
+                "Isinya... pelukan virtual dari aku. 🤗💗";
+
+        }
+
+
+        nextButton.style.display = "inline-block";
+
+    }
+
+
+</script>
+
+
 </body>
+
 </html>
