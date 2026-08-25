@@ -1,977 +1,460 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Birthday Game - Jana 🎂</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-
-            font-family: Arial, sans-serif;
-
-            min-height: 100vh;
-
-            background: linear-gradient(
-                135deg,
-                #ffdce9,
-                #e7dcff
-            );
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            text-align: center;
-
-            color: #5c4652;
-
-            padding: 20px;
-
-        }
-
-
-        .game {
-
-            width: 100%;
-
-            max-width: 650px;
-
-            min-height: 500px;
-
-            background: rgba(
-                255,
-                255,
-                255,
-                0.92
-            );
-
-            border-radius: 35px;
-
-            padding: 40px 30px;
-
-            box-shadow:
-                0 20px 50px
-                rgba(80, 50, 80, 0.15);
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-
-        }
-
-
-        .page {
-
-            display: none;
-
-            width: 100%;
-
-            animation: fade 0.6s ease;
-
-        }
-
-
-        .page.active {
-
-            display: block;
-
-        }
-
-
-        .emoji {
-
-            font-size: 70px;
-
-            margin-bottom: 20px;
-
-            animation: float 2s infinite;
-
-        }
-
-
-        h1 {
-
-            font-size: 42px;
-
-            color: #c7658d;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        h2 {
-
-            font-size: 25px;
-
-            margin-bottom: 20px;
-
-            color: #76576a;
-
-        }
-
-
-        p {
-
-            font-size: 17px;
-
-            line-height: 1.8;
-
-            margin-bottom: 20px;
-
-        }
-
-
-        button {
-
-            border: none;
-
-            background: #df83a5;
-
-            color: white;
-
-            padding: 15px 30px;
-
-            border-radius: 30px;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-            margin: 8px;
-
-            transition: 0.3s;
-
-        }
-
-
-        button:hover {
-
-            transform: translateY(-3px);
-
-            background: #c96f93;
-
-        }
-
-
-        .boxes {
-
-            display: flex;
-
-            justify-content: center;
-
-            gap: 15px;
-
-            flex-wrap: wrap;
-
-            margin: 25px 0;
-
-        }
-
-
-        .box {
-
-            font-size: 55px;
-
-            background: #fff0f6;
-
-            border-radius: 20px;
-
-            padding: 20px;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-
-        }
-
-
-        .box:hover {
-
-            transform: scale(1.08);
-
-        }
-
-
-        .photo-placeholder {
-
-            width: 100%;
-
-            height: 220px;
-
-            background: #f5e8ef;
-
-            border-radius: 25px;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            font-size: 50px;
-
-            margin-bottom: 20px;
-
-        }
-.memory-photo {
-
-    width: 100%;
-
-    max-height: 350px;
-
-    object-fit: cover;
-
-    border-radius: 25px;
-
-    margin-bottom: 20px;
-
-    box-shadow:
-        0 10px 25px
-        rgba(80, 50, 80, 0.15);
-
-}
-
-        .progress {
-
-            width: 100%;
-
-            height: 25px;
-
-            background: #eee;
-
-            border-radius: 20px;
-
-            overflow: hidden;
-
-            margin: 20px 0;
-
-        }
-
-
-        .progress-bar {
-
-            height: 100%;
-
-            width: 80%;
-
-            background: #df83a5;
-
-            border-radius: 20px;
-
-        }
-
-
-        .letter {
-
-            background: #fff8fb;
-
-            border-radius: 25px;
-
-            padding: 25px;
-
-            text-align: left;
-
-            line-height: 1.8;
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .confetti {
-
-            font-size: 45px;
-
-            margin: 10px;
-
-            display: inline-block;
-
-            animation: float 1.5s infinite;
-
-        }
-
-
-        @keyframes fade {
-
-            from {
-
-                opacity: 0;
-
-                transform: translateY(15px);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform: translateY(0);
-
-            }
-
-        }
-
-
-        @keyframes float {
-
-            0%, 100% {
-
-                transform: translateY(0);
-
-            }
-
-            50% {
-
-                transform: translateY(-10px);
-
-            }
-
-        }
-
-
-        @media (max-width: 500px) {
-
-            h1 {
-
-                font-size: 32px;
-
-            }
-
-            h2 {
-
-                font-size: 21px;
-
-            }
-
-            p {
-
-                font-size: 15px;
-
-            }
-
-            .game {
-
-                padding: 30px 20px;
-
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-<div class="game">
-
-
-    <!-- PAGE 1 -->
-
-    <div class="page active" id="page1">
-
-        <div class="emoji">🎀</div>
-
-        <h1>Hai, Janaaa! 👀</h1>
+<!-- START -->
+<section class="screen active" id="start">
+    <div class="card">
+        <div class="emoji">🎂</div>
+
+        <h1>JANA'S BIRTHDAY ADVENTURE</h1>
 
         <p>
-
-           Aku ada sesuatu buat kauu 🎁
-
+            Haiii Janaaa 👀
         </p>
 
         <p>
-
-            Tapi sayangnya...
-
-            kau nggak bisa langsung dapetin hadiahnya. WKWK 😂
-
-            Ada beberapa hal yang harus kau lakukan duluu
-            
-            sebelum sampai ke bagian terakhir.
-            
-            Gampang kok...
+            Selamat datang di game yang sebenarnya
+            nggak penting-penting amat...
+            tapi sayang kalau nggak diselesaiin.
+            😭
         </p>
 
-        <button onclick="startGame()">
+        <p>
+            Katanya kamu ulang tahun hari ini?
+            Hmm... mencurigakan. 🤨
+        </p>
 
-            MULAI 🎮
+        <p>
+            Yaudah deh, selamat ulang tahun dulu
+            sebelum kita mulai. 💗
+        </p>
 
+        <button class="btn" onclick="startGame()">
+            MULAI PETUALANGAN 🎮
+        </button>
+
+        <p class="small">
+            Peringatan: game ini mengandung kenangan,
+            ketawa random, dan sedikit ancaman skripsi.
+        </p>
+    </div>
+</section>
+
+
+<!-- LEVEL 1 -->
+<section class="screen" id="level1">
+    <div class="card">
+
+        <div class="status">
+            <span>⭐ LEVEL 1</span>
+            <span>❤️❤️❤️</span>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" style="width:20%"></div>
+        </div>
+
+        <h2>Seberapa kenal kau sama aku? 👀</h2>
+
+        <p>
+            Setelah selama ini kita sahabatan,
+            masa iya kau nggak kenal aku?
+        </p>
+
+        <p>
+            Kalau kita ketemu setelah lama nggak ketemu,
+            kemungkinan terbesar yang terjadi adalah...
+        </p>
+
+        <button class="option" onclick="wrongAnswer()">
+            A. Ngobrol normal kayak manusia
+        </button>
+
+        <button class="option" onclick="correctAnswer()">
+            B. Baru ketemu langsung ketawa nggak jelas 😂
+        </button>
+
+        <button class="option" onclick="wrongAnswer()">
+            C. Langsung foto aesthetic
+        </button>
+
+        <button class="option" onclick="wrongAnswer()">
+            D. Saling diem karena lupa mau ngomong apa
+        </button>
+
+        <div class="message" id="answerMessage"></div>
+
+        <button class="btn" id="next1" style="display:none" onclick="showScreen('level2')">
+            LANJUT ➜
         </button>
 
     </div>
+</section>
 
 
+<!-- LEVEL 2 -->
+<section class="screen" id="level2">
+    <div class="card">
 
-    <!-- PAGE 2 -->
+        <div class="status">
+            <span>⭐ LEVEL 2</span>
+            <span>🔐</span>
+        </div>
 
-    <div class="page" id="page2">
+        <div class="progress">
+            <div class="progress-bar" style="width:40%"></div>
+        </div>
+
+        <h2>Buka Kuncinya 🔐</h2>
+
+        <p>
+            Aku nggak bisa dilihat,
+            tapi bisa bikin kita senyum sendiri.
+        </p>
+
+        <p>
+            Aku nggak bisa diulang,
+            tapi selalu bisa diingat.
+        </p>
+
+        <p>
+            Kadang bikin kangen,
+            kadang bikin malu sendiri kalau diingat. 😭
+        </p>
+
+        <h3>Aku apa?</h3>
+
+        <button class="option" onclick="wrongRiddle()">
+            A. Skripsi 📚
+        </button>
+
+        <button class="option" onclick="correctRiddle()">
+            B. Kenangan 📸
+        </button>
+
+        <button class="option" onclick="wrongRiddle()">
+            C. Dosen pembimbing 👀
+        </button>
+
+        <button class="option" onclick="wrongRiddle()">
+            D. Chat jam 2 pagi
+        </button>
+
+        <div class="message" id="riddleMessage"></div>
+
+        <button class="btn" id="next2" style="display:none" onclick="showScreen('level3')">
+            BUKA MEMORY 📸
+        </button>
+
+    </div>
+</section>
+
+
+<!-- LEVEL 3 -->
+<section class="screen" id="level3">
+    <div class="card">
+
+        <div class="status">
+            <span>⭐ LEVEL 3</span>
+            <span>📸 MEMORY</span>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" style="width:60%"></div>
+        </div>
+
+        <h2>Memory Unlocked! 🔓</h2>
+
+        <p>
+            Hmm...
+        </p>
+
+        <p>
+            Ternyata setelah sekian lama,
+            kita punya juga ya foto yang masih bisa dipajang. 😂
+        </p>
+
+        <img
+            src="foto-jana.jpg.jpeg"
+            alt="Foto Jana"
+            class="memory-img"
+        >
+
+        <p>
+            Walaupun sekarang nggak sesering dulu ketemu,
+            bukan berarti cerita kita ikut selesai.
+        </p>
+
+        <p>
+            Masih banyak hal random yang pernah kita lewatin bareng.
+            Dan jujur...
+            aku seneng pernah punya sahabat kayak kau. 🥹💗
+        </p>
+
+        <button class="btn" onclick="showScreen('boss')">
+            LANJUT ➜
+        </button>
+
+    </div>
+</section>
+
+
+<!-- BOSS -->
+<section class="screen" id="boss">
+    <div class="card">
+
+        <div class="status">
+            <span>⭐ LEVEL 4</span>
+            <span>🚨 FINAL BOSS</span>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" style="width:80%"></div>
+        </div>
+
+        <h2>FINAL BOSS TELAH MUNCUL 🚨</h2>
+
+        <div class="boss">
+
+            <h2>📚 SKRIPSI</h2>
+
+            <p>
+                LEVEL: nggak jelas
+            </p>
+
+            <p>
+                MENTAL: mohon jangan ditanya 😭
+            </p>
+
+            <p>
+                KESABARAN: ▏
+            </p>
+
+            <div class="hp">
+                <div class="hp-fill" id="bossHp"></div>
+            </div>
+
+            <p id="bossText">
+                Skripsi masih kuat.
+                Serang sekarang! 😤
+            </p>
+
+        </div>
+
+        <button class="btn" onclick="attackBoss()">
+            ⚔️ SERANG SKRIPSI
+        </button>
+
+        <button class="btn" id="nextBoss" style="display:none" onclick="showScreen('level5')">
+            LANJUT ➜
+        </button>
+
+    </div>
+</section>
+
+
+<!-- LEVEL 5 -->
+<section class="screen" id="level5">
+    <div class="card">
+
+        <div class="status">
+            <span>⭐ LEVEL 5</span>
+            <span>🎓</span>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" style="width:100%"></div>
+        </div>
+
+        <h2>MISSION: LULUS 🎓</h2>
+
+        <div class="quest">
+
+            <div>☐ Skripsi selesai</div>
+            <div>☐ Sempro</div>
+            <div>☐ Semhas</div>
+            <div>☐ Revisi</div>
+            <div>☐ LULUS 🎓</div>
+
+        </div>
+
+        <p>
+            Satu-satu aja, Jan.
+        </p>
+
+        <p>
+            Nggak harus langsung semuanya.
+            Yang penting terus jalan.
+        </p>
+
+        <p>
+            Aku percaya kau bisa. 💗
+        </p>
+
+        <div class="quest">
+
+            <strong>⚠️ SIDE QUEST</strong>
+
+            <p>
+                Kalau nanti sudah sempro...
+            </p>
+
+            <p>
+                <strong>JANGAN LUPA UNDANG AKU.</strong> 😭
+            </p>
+
+            <p>
+                Kalau sudah semhas...
+            </p>
+
+            <p>
+                <strong>JANGAN LUPA UNDANG AKU JUGA.</strong>
+            </p>
+
+            <p>
+                Pokoknya kalau ada acara penting:
+                <strong>DESTI WAJIB HADIR.</strong>
+                TITIK. 😂
+            </p>
+
+        </div>
+
+        <button class="btn" onclick="showScreen('letter')">
+            BUKA HADIAH TERAKHIR 🎁
+        </button>
+
+    </div>
+</section>
+
+
+<!-- LETTER -->
+<section class="screen" id="letter">
+    <div class="card final">
 
         <div class="emoji">💌</div>
 
-        <h2>💌 Ada yang ulang tahun nihhh...</h2>
+        <h2>THE REAL GIFT</h2>
 
         <p>
-
-            Hari ini ada seseorang yang umurnya nambah lagiii... 👀
-
+            Gila...
+            ternyata kau berhasil juga sampai akhir. 😭
         </p>
 
         <p>
-
-            Dan orang itu adalah...
-
+            Tapi sebenarnya dari awal...
         </p>
 
-        <h1>JANAAAA! 🎂</h1>
+        <h3>game ini cuma alasan.</h3>
 
         <p>
-
-            Selamat ulang tahunnn, sahabatkuuu! 💗
-            
-            Semoga di umur yang baru ini
-            
-            banyak hal baik datang ke kauu.
-            
-            Tapiii... jangan seneng dulu 👀
-            
-            Perjalanannya masih panjanggg 😂
-
+            Aku sebenarnya cuma mau bilang sesuatu.
         </p>
-
-        <button onclick="nextPage(3)">
-
-            LANJUT ➜
-
-        </button>
-
-    </div>
-
-
-
-    <!-- PAGE 3 -->
-
-    <div class="page" id="page3">
-
-        <div class="emoji">🎁</div>
-
-        <h2>🎁 Coba pilih satu...</h2>
-
-        <p>
-
-            Nahh didepanmu ada tiga hadiah nihh 👀
-
-        </p>
-
-        <p>
-
-            Pilih satu...
-
-            Jangan curang ya! 👀
-
-        </p>
-
-
-        <div class="boxes">
-
-            <div
-                class="box"
-                onclick="chooseBox(1)"
-            >
-
-                🎁
-
-            </div>
-
-
-            <div
-                class="box"
-                onclick="chooseBox(2)"
-            >
-
-                🎁
-
-            </div>
-
-
-            <div
-                class="box"
-                onclick="chooseBox(3)"
-            >
-
-                🎁
-
-            </div>
-
-        </div>
-
-
-        <p id="boxResult"></p>
-
-        <button
-            id="boxNext"
-            style="display:none"
-            onclick="nextPage(4)"
-        >
-
-            LANJUT ➜
-
-        </button>
-
-    </div>
-
-
-
-    <!-- PAGE 4 -->
-
-    <div class="page" id="page4">
-
-        <div class="emoji">📸</div>
-
-        <h2>Sedikit tentang kita...</h2>
-
-        <p>
-
-            Kalau dipikir-pikir...
-            
-            ternyata udah lumayan banyak cerita yang kita lewatin bareng. 
-            
-            Walaupun sekarang kita nggak sesering dulu ketemu,
-            
-            setidaknya masih ada foto-foto yang bisa jadi bukti kalau kita pernah se-random itu. 😂
-
-        </p>
-
-
-        <img
-    src="foto-jana.jpg.jpeg"
-    alt="Kenangan bersama Jana"
-    class="memory-photo"
->
-
-        <p>
-
-            Ini cuma satu dari sekian banyak kenangan kitaaa 💗
-
-        </p>
-
-
-        <button onclick="nextPage(5)">
-
-            LIHAT SELANJUTNYA ➜
-
-        </button>
-
-    </div>
-
-
-
-    <!-- PAGE 5 -->
-
-    <div class="page" id="page5">
-
-        <div class="emoji">📚</div>
-
-        <h2>📚 Nahhh, ini dia...</h2>
-
-        <p>
-
-           Ada satu hal yang kayaknya nggak boleh dilewatin!!!
-
-        </p>
-
-
-        <h1>SKRIPSI 🎓</h1>
-
-
-        <div class="progress">
-
-            <div class="progress-bar"></div>
-
-        </div>
-
-
-        <p>
-
-            Progress:
-
-            <b>Katanya tinggal sedikit lagiii...</b>
-
-        </p>
-
-
-        <p>
-
-            Jadi jangan berhenti sekarang yaa, Jan. 😭
-            
-            Kalau capek, istirahat duluu.
-            
-            Kalau bingung, cerita ajaa.
-
-        </p>
-
-
-        <p>
-
-            Pokoknya harus sampai selesai! 😤💗
-
-        </p>
-
-
-        <button onclick="nextPage(6)">
-
-            AKU BISA! 💪
-
-        </button>
-
-    </div>
-
-
-
-    <!-- PAGE 6 -->
-
-    <div class="page" id="page6">
-
-        <div class="emoji">😭</div>
-
-        <h2>🚨 Eits, hampir lupa!</h2>
-
-
-        <p>
-
-            Ada satu hal yang harus kau inget baik-baikkk... 👀
-
-        </p>
-
-
-        <h1>
-
-            SEMPRO & SEMHAS 🎓
-
-        </h1>
-
-
-        <p>
-
-            Jangan sampai nanti kau udah sempro,
-            
-            udah semhas, bahkan udah mau lulus...
-
-            aku malah nggak diundang. 😭😂
-
-        </p>
-
-
-        <p>
-
-           Pokoknya kalau udah sampai tahap itu,
-            
-            jangan lupa kabarin aku yaa, Jan! 💗
-
-        </p>
-
-
-        <button onclick="nextPage(7)">
-
-            SIAP! 😭🎓
-
-        </button>
-
-    </div>
-
-
-
-    <!-- PAGE 7 -->
-
-    <div class="page" id="page7">
-
-        <div class="emoji">💗</div>
-
-        <h2>Suat Kecil Untuk Janaaa </h2>
-
 
         <div class="letter">
 
+            <strong>Jan,</strong>
+
             <p>
-
-                Jan...
-
+                Selamat ulang tahun yaaa. 🥹💗
             </p>
 
-
             <p>
-
-                Selamat ulang tahun ya.....
-
+                Semoga di umur yang baru ini kau makin bahagia,
+                makin kuat, dan makin banyak hal baik yang datang
+                ke hidup kau.
             </p>
 
-
             <p>
-
-                Semoga di umur yang baru ini,
-                
-                semoga banyak hal baik datang ke hidup kauu.
-                
-                Semoga semua yang lagi kau perjuangin
-                
-                pelan-pelan dipermudah jalannya.
-
+                Aku tahu sekarang kita nggak sesering dulu ketemu,
+                tapi aku tetap bersyukur pernah punya banyak cerita
+                sama kau.
             </p>
 
-
             <p>
-
-                Walaupun sekarang kita nggak sesering dulu ketemu,
-                
-                aku tetap seneng pernah punya banyak cerita sama kauu. 💗
-                
-                Dan semoga skripsinya lancar,
-                
-                sempronya lancar,
-                
-                semhasnya juga lancarrr...
-
+                Semoga semua yang lagi kau perjuangin sekarang,
+                terutama skripsinya, dipermudah sampai selesai.
             </p>
 
-
             <p>
-
-                Jangan terlalu keras sama diri
-
-                sendiri. Kamu sudah sejauh ini,
-
-                dan itu bukan sesuatu yang kecil.
-
+                Kalau capek, istirahat.
+                Kalau pusing, jangan dipendem sendiri.
+                Kalau mau nyerah...
             </p>
 
-
             <p>
-
-                Sampai nanti kau bisa bilang:
-
-
-                <b>"AKHIRNYA AKU LULUS!"</b> 🎓😭
-
+                <strong>
+                    ingat masih ada aku yang bakal gangguin kau. 😂
+                </strong>
             </p>
 
-
             <p>
-
-                Dan satu hal yang paling penting...
-               JANGAN LUPA UNDANG AKU YA, JAN! 😂
-                Aku tungguuu! 💗
-
+                Pokoknya sampai nanti kau bisa bilang:
             </p>
 
+            <h3>
+                "AKHIRNYA AKU LULUS!" 🎓😭
+            </h3>
 
             <p>
+                Dan satu hal...
+            </p>
 
-                — Dari sahabatmu bidadari Destii comel dan cantik
+            <p>
+                <strong>
+                    JANGAN LUPA UNDANG AKU SEMPRO & SEMHAS.
+                </strong>
+            </p>
 
+            <p>
+                Aku serius.
+            </p>
+
+            <p>
+                Kalau nggak diundang,
+                kita ribut. 😭
+            </p>
+
+            <p>
+                — Destiii 💗
             </p>
 
         </div>
 
-
-        <button onclick="nextPage(8)">
-
-            MASIH ADA SATU LAGI... 👀
-
+        <button class="btn" onclick="finishGame()">
+            SELESAI 🎂
         </button>
 
     </div>
+</section>
 
 
+<!-- END -->
+<section class="screen" id="ending">
+    <div class="card">
 
-    <!-- PAGE 8 -->
+        <div class="emoji">🎉</div>
 
-    <div class="page" id="page8">
+        <h1>HAPPY BIRTHDAY, JANA! 🎂</h1>
 
-        <div class="confetti">🎉</div>
-
-        <div class="confetti">🎂</div>
-
-        <div class="confetti">💗</div>
-
-
-        <h1>
-
-            HAPPY BIRTHDAY
-
-        </h1>
-
-
-        <h1>
-
-            NURJANA AS! 🎂
-
-        </h1>
-
+        <h2>YOU WIN! 🏆</h2>
 
         <p>
-
-            Selamat bertambah usiaa, sahabatkuuu!
-
-            sahabatnyaa Destiii tercintaaa dan terbaikkkk. 
-
+            Semua level berhasil diselesaikan.
         </p>
-
 
         <p>
-
-            Semoga di umur yang baru ini
-            
-            kau makin bahagia, makin kuat,
-            
-            dan satu-satu hal yang kau mau bisa tercapaii.
-
+            <strong>LEVEL:</strong> Sahabat Seumur Hidup 💗
         </p>
-
 
         <p>
-
-           Semoga semua perjuangan kau sekarang
-            
-            nantinya bisa jadi cerita yang kita ketawain bareng. 😂
-            
-            Sampai suatu hari nanti kita bisa bilang...
-
+            <strong>STATUS:</strong> Masih harus ditraktir 😌
         </p>
-
-
-        <h2>
-
-            “Ternyata kita berhasil juga yaaa” 🥹🎓 
-
-        </h2>
-
 
         <p>
-
-            Pokoknya, bahagia terus yaa, Jannn! 💗
-            
-            Dan ingat...
-            <b>AKU TUNGGU UNDANGAN SEMPRO & SEMHAS! 😂</b>
-
+            Semoga hari ini jadi salah satu hari
+            yang paling menyenangkan buat kau.
         </p>
 
-
-        <div class="confetti">🎉</div>
-
-        <div class="confetti">🥳</div>
-
-        <div class="confetti">🎈</div>
+        <button class="btn" onclick="location.reload()">
+            MAIN LAGI 🔄
+        </button>
 
     </div>
-
-
-</div>
-
-
-
-<script>
-
-function startGame() {
-
-const music = document.getElementById("backgroundMusic");
-
-music.play();
-
-nextPage(2);
-
-}
-    function nextPage(pageNumber) {
-
-        const pages = document.querySelectorAll(".page");
-
-        pages.forEach(page => {
-
-            page.classList.remove("active");
-
-        });
-
-
-        document
-
-            .getElementById("page" + pageNumber)
-
-            .classList.add("active");
-
-    }
-
-
-
-    function chooseBox(number) {
-
-        const result = document.getElementById("boxResult");
-
-        const nextButton = document.getElementById("boxNext");
-
-
-        if (number === 1) {
-
-            result.innerHTML =
-
-                "Kamu memilih kotak pertama! 🎁<br>" +
-
-                "Isinya... doa baik untuk kamu. 💗";
-
-        }
-
-
-        if (number === 2) {
-
-            result.innerHTML =
-
-                "Kamu memilih kotak kedua! 🎁<br>" +
-
-                "Isinya... semangat skripsi! 📚😭";
-
-        }
-
-
-        if (number === 3) {
-
-            result.innerHTML =
-
-                "Kamu memilih kotak ketiga! 🎁<br>" +
-
-                "Isinya... pelukan virtual dari bidadari Destiii. 🤗💗";
-
-        }
-
-
-        nextButton.style.display = "inline-block";
-
-    }
-
-
-</script>
-
-<audio id="backgroundMusic" loop>
-
-<source src="monokrom.mp3.mp3" type="audio/mpeg">
-</body>
-
-</html>
+</section>
